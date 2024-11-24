@@ -23,7 +23,18 @@ class IngredienteResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('nombre')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('cantidad_disponible')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('unidad')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('stock_minimo')
+                    ->required()
+                    ->numeric(),
             ]);
     }
 
@@ -31,6 +42,16 @@ class IngredienteResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('nombre')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cantidad_disponible')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('unidad')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('stock_minimo')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
