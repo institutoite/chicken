@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('plato_id')->references('id')->on('platos');
             $table->foreign('ingrediente_id')->references('id')->on('ingredientes');
             $table->decimal('cantidad_usada', 8, 2);
+            $table->string('unidad',15);
             $table->timestamps();
         });
     }

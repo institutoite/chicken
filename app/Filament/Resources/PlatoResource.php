@@ -12,8 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\FileUpload;
+
 class PlatoResource extends Resource
 {
     protected static ?string $model = Plato::class;
@@ -27,39 +26,31 @@ class PlatoResource extends Resource
                 Forms\Components\TextInput::make('nombre')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('precio')
                     ->required()
                     ->numeric(),
-                Forms\Components\Select::make('category_id')
+                Forms\Components\Select::make('category_id') // Cambiar a Select para elegir categorías
                     ->label('Categoría')
-                    ->options(
-                        \App\Models\Category::all()->pluck('category', 'id') // Carga todas las categorías
-                    )
-                    ->required() // Campo obligatorio
-                    ->relationship('category', 'category'), // Relación definida en el modelo
-                Forms\Components\FileUpload::make('imagen')
-                    ->image()
-                    ->imageEditor()
-                    ->imageEditorMode(2),
-                Forms\Components\RichEditor::make('descripcion')
+                    ->options(\App\Models\Category::all()->pluck('category', 'id')) // Cambié a 'category' como nombre del campo
+                    ->required(),
+                Forms\Components\RichEditor::make('descripcion') // Cambiar Textarea a RichEditor
+                    ->label('Descripción')
                     ->toolbarButtons([
-                        'attachFiles',
-                        'blockquote',
-                        'bold',
-                        'bulletList',
-                        'codeBlock',
-                        'h2',
-                        'h3',
-                        'italic',
-                        'link',
-                        'orderedList',
-                        'redo',
-                        'strike',
-                        'underline',
-                        'undo',
+                        'bold', 'italic', 'underline', 'strike', 
+                        'link', 'orderedList', 'unorderedList', 
+                        'heading', 'blockquote', 'codeBlock',
                     ])
                     ->columnSpanFull(),
-               
+                Forms\Components\FileUpload::make('imagen') // Campo de carga de imagen
+                    ->image() // Especifica que es un archivo de imagen
+                    ->directory('platos') // Carpeta donde se guardarán las imágenes
+                    ->maxSize(1024) // Tamaño máximo del archivo en KB
+                    ->nullable(), // Permitir que sea opcional,
+                Forms\Components\Toggle::make('disponible')
+                    ->required(),
             ]);
     }
 
@@ -69,6 +60,8 @@ class PlatoResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('precio')
                     ->numeric()
                     ->sortable(),
@@ -77,6 +70,8 @@ class PlatoResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('imagen')
                     ->searchable(),
+                Tables\Columns\IconColumn::make('disponible')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

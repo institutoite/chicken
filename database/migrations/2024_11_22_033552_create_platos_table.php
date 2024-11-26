@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('platos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('slug')->unique();
             $table->decimal('precio', 8, 2);
-
             $table->unsignedBigInteger('category_id');
-            $table->foreign("category_id")->references('id')->on('categories');
-
+            $table->foreign('category_id')->references('id')->on("categories");
             $table->text('descripcion')->nullable();
             $table->string('imagen')->nullable();
+            $table->boolean('disponible')->default(true);
             $table->timestamps();
         });
     }

@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('empresa');
             $table->string('representante');
-            $table->string('telefono',10)->nullable();
+            $table->string('telefono', 15)->nullable();
+            $table->string('email')->nullable();
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

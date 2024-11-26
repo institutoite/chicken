@@ -23,7 +23,18 @@ class RecetaResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('plato_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('ingrediente_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('cantidad_usada')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('unidad')
+                    ->required()
+                    ->maxLength(15),
             ]);
     }
 
@@ -31,6 +42,17 @@ class RecetaResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('plato_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('ingrediente_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('cantidad_usada')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('unidad')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

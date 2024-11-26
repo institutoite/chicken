@@ -27,8 +27,10 @@ class CategoryResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('descripcion')
-                    ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\Toggle::make('activo')
+                    ->required(),
             ]);
     }
 
@@ -40,6 +42,8 @@ class CategoryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('descripcion')
                     ->searchable(),
+                Tables\Columns\IconColumn::make('activo')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

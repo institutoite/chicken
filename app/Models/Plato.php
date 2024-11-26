@@ -8,16 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Plato extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nombre',
-        'precio',
-        'category_id', // Asegúrate de que category_id está aquí
-        'descripcion',
-        'imagen',
-    ];
+    protected $guarded = [];
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id'); // Asegúrate de usar category_id como referencia
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function recetas()
+    {
+        return $this->hasMany(Receta::class, 'plato_id');
+    }
+
+    public function detalleVentas()
+    {
+        return $this->hasMany(DetalleVenta::class, 'plato_id');
     }
 }
