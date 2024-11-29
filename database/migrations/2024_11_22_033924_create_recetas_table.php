@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("plato_id");
             $table->unsignedBigInteger("ingrediente_id");
+            $table->unsignedBigInteger("unidad_id");
             $table->foreign('plato_id')->references('id')->on('platos');
             $table->foreign('ingrediente_id')->references('id')->on('ingredientes');
+            $table->foreign('unidad_id')->references('id')->on('unidads');
             $table->decimal('cantidad_usada', 8, 2);
-            $table->string('unidad',15);
             $table->timestamps();
         });
     }
@@ -31,3 +32,4 @@ return new class extends Migration
         Schema::dropIfExists('recetas');
     }
 };
+

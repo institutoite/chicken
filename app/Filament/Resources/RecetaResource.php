@@ -23,18 +23,28 @@ class RecetaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('plato_id')
+                Forms\Components\Select::make('plato_id')
+                    ->label('Plato')
+                    ->relationship('plato', 'nombre') // Relación con el modelo Plato, mostrando el campo 'nombre'
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('ingrediente_id')
+                    //->searchable() // Habilita la búsqueda en el dropdown
+                    ->placeholder('Selecciona un plato'),
+    
+                Forms\Components\Select::make('ingrediente_id')
+                    ->label('Ingrediente')
+                    ->relationship('ingrediente', 'nombre') // Relación con el modelo Ingrediente, mostrando el campo 'nombre'
                     ->required()
-                    ->numeric(),
+                    //->searchable() // Habilita la búsqueda en el dropdown
+                    ->placeholder('Selecciona un ingrediente'),
+    
                 Forms\Components\TextInput::make('cantidad_usada')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('unidad')
+                Forms\Components\Select::make('unidad_id')
+                    ->label('Unidad')
+                    ->relationship('unidad', 'unidad') // Relación con el modelo Unidad (tabla units)
                     ->required()
-                    ->maxLength(15),
+                    ->placeholder('Selecciona una unidad'),
             ]);
     }
 

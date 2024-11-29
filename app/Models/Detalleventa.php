@@ -10,13 +10,15 @@ class Detalleventa extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function venta()
-    {
-        return $this->belongsTo(Venta::class, 'venta_id');
-    }
-
     public function plato()
     {
         return $this->belongsTo(Plato::class, 'plato_id');
     }
+
+    public function venta()
+    {
+        return $this->belongsTo(Venta::class);
+    }
+
+    
 }

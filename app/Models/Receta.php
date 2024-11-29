@@ -12,11 +12,15 @@ class Receta extends Model
 
     public function plato()
     {
-        return $this->belongsTo(Plato::class, 'plato_id');
+        return $this->belongsTo(Plato::class);
     }
 
     public function ingrediente()
     {
-        return $this->belongsTo(Ingrediente::class, 'ingrediente_id');
+        return $this->belongsTo(Ingrediente::class);
+    }
+    public function unidad()
+    {
+        return $this->belongsTo(Unidad::class);
     }
 }

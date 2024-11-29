@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sucursal_id');
-            $table->unsignedBigInteger('user_id')->nullable(); // Usuario que registra la venta
+            $table->unsignedBigInteger('user_id'); // Usuario que registra la venta
+            $table->unsignedBigInteger('cliente_id'); // Cliente que realiza la compra
             $table->decimal('total', 12, 2);
-            $table->timestamp('fecha');
-            $table->foreign('sucursal_id')->references('id')->on('sucursals')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('sucursal_id')->references('id')->on('sucursals');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->timestamps();
         });
     }

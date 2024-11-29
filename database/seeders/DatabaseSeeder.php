@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Ingrediente;
+use App\Models\Proveedor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +25,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,
+            UnidadSeeder::class,
             IngredienteSeeder::class,
+            PlatoSeeder::class,
+            ProveederSeeder::class,
 
         ]);
     }
